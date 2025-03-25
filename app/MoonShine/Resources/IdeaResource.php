@@ -45,7 +45,7 @@ class IdeaResource extends ModelResource
             Enum::make('Статус','status')
                 ->attach(IdeaStatusEnum::class)
                 ->badge(),
-            Date::make('Дата','created_at', fn($item) => Carbon::createFromTimestamp($item->created_at))->format('d.m.Y H:i'),
+            Date::make('Дата','created_at', fn($item) => Carbon::createFromTimestamp($item->created_at, 'Europe/Moscow'))->format('d.m.Y H:i'),
         ];
     }
 
@@ -76,7 +76,7 @@ class IdeaResource extends ModelResource
             Enum::make('Статус','status')
                 ->attach(IdeaStatusEnum::class)
                 ->badge(),
-            Date::make('Дата','created_at', fn($item) => Carbon::createFromTimestamp($item->created_at))->format('d.m.Y H:i'),
+            Date::make('Дата','created_at', fn($item) => Carbon::createFromTimestamp($item->created_at, 'Europe/Moscow'))->format('d.m.Y H:i'),
         ];
     }
 
