@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\GetUpdates;
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::call(\App\Console\Commands\GetUpdates::class)->everyTwoSeconds();
+Schedule::command(GetUpdates::class)->everyTwoSeconds();
