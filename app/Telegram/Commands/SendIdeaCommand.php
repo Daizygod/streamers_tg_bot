@@ -35,12 +35,14 @@ final class SendIdeaCommand extends Command
     {
         $pattern = '~[a-z]+://\S+~';
 
-        $ideaText = $this->argument('text');
+        $ideaText = $this->argument('text', null);
 
         try {
 
             if (!is_null($ideaText) && strlen($ideaText) < 25) {
                 $this->replyWithMessage(['text' => 'Можешь расписать подробнее?']);
+            } elseif (is_null($ideaText)) {
+                $this->replyWithMessage(['text' => 'Напиши текст после команды:' . PHP_EOL . '/send_idea посмотри это https://www.youtube.com/watch?v=tfSS1e3kYeo?']);
             } else {
 
                 $linksCount = preg_match_all($pattern, $ideaText, $links);
