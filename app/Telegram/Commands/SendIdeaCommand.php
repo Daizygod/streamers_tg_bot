@@ -66,15 +66,24 @@ final class SendIdeaCommand extends Command
                     $this->replyWithMessage(['text' => 'Такое уже было отсмотрено/отклонено']);
                 } else {
 
-                    $newIdea = new Idea();
-                    $newIdea->message = $ideaText;
-                    $newIdea->sender_tg = $this->getUpdate()->getMessage()->from->username;
-                    $newIdea->created_at = Carbon::now()->timestamp;
-                    $newIdea->status = IdeaStatusEnum::Waiting;
+                    $sameTextExists = Idea::query()
+                        ->whereNotIn('status', [IdeaStatusEnum::Canceled])
+                        ->where('message', $ideaText)
+                        ->exists();
 
-                    $newIdea->save();
+                    if ($sameTextExists) {
+                        $this->replyWithMessage(['text' => 'Такое уже было отсмотрено/отклонено']);
+                    } else {
+                        $newIdea = new Idea();
+                        $newIdea->message = $ideaText;
+                        $newIdea->sender_tg = $this->getUpdate()->getMessage()->from->username;
+                        $newIdea->created_at = Carbon::now()->timestamp;
+                        $newIdea->status = IdeaStatusEnum::Waiting;
 
-                    $this->replyWithMessage(['text' => 'Принято']);
+                        $newIdea->save();
+
+                        $this->replyWithMessage(['text' => 'Принято']);
+                    }
                 }
 
             }
