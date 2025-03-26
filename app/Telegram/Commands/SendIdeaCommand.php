@@ -39,10 +39,10 @@ final class SendIdeaCommand extends Command
 
         try {
 
-            if (!is_null($ideaText) && strlen($ideaText) < 25) {
+            if (!is_null($ideaText) && strlen($ideaText) < 20) {
                 $this->replyWithMessage(['text' => 'Можешь расписать подробнее?']);
             } elseif (is_null($ideaText)) {
-                $this->replyWithMessage(['text' => 'Напиши текст после команды:' . PHP_EOL . '/send_idea посмотри фильм "Гонка"']);
+                $this->replyWithMessage(['text' => 'Напиши текст что посмотреть:' . PHP_EOL . '/send_idea посмотри фильм "Гонка"']);
             } else {
 
                 $linksCount = preg_match_all($pattern, $ideaText, $links);
